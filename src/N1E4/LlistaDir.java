@@ -7,6 +7,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -15,33 +16,40 @@ public class LlistaDir {
 
 
 	public static void llistaDir (String path) throws IOException {
+		Date data = null;
 		Path dir = Paths.get(path);
 		TreeSet<Path> llista = null;
 		TreeSet<Path> subLlista = null;
 		llista = llistaUtilitat(dir);
-
+		
+		
 		for (Path i : llista) {
 			if (i.toFile().isFile()) {
 				if (!elTexte(i).equals(i.getFileName().toString())){
-					System.out.println(i.getFileName() + "(F)");
+					data = new Date(i.toFile().lastModified());
+					System.out.println(i.getFileName() + "(F) " + data);
 					System.out.println("	" + elTexte(i));
 				} else {
-					System.out.println(i.getFileName() + "(F)");
+					data = new Date(i.toFile().lastModified());
+					System.out.println(i.getFileName() + "(F) " + data);
 				}
 			} else {
 				subLlista = llistaUtilitat (i);
-				System.out.println(i.getFileName() + "(D)");
+				data = new Date(i.toFile().lastModified());
+				System.out.println(i.getFileName() + "(D) " + data);
 				for (Path j : subLlista) {
 					if (Files.exists(j)) {
 						if (elTexte(i).equals(j.getFileName().toString())){
-							System.out.println("	" + i.getFileName() + "(F)");
+							data = new Date(i.toFile().lastModified());
+							System.out.println("	" + i.getFileName() + "(F) " + data);
 							System.out.println("		" + elTexte(i));
 						} else {
-							
-							System.out.println("	" + i.getFileName() + "(F)");
+							data = new Date(i.toFile().lastModified());
+							System.out.println("	" + i.getFileName() + "(F) " + data);
 						}
 					} else {
-						System.out.println("	" + j.getFileName() + "(D)");
+						data = new Date(i.toFile().lastModified());
+						System.out.println("	" + j.getFileName() + "(D) " + data);
 					}
 				}
 			}

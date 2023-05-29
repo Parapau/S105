@@ -8,6 +8,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.TreeSet;
 
 public class LlistaDir {
@@ -19,22 +20,26 @@ public class LlistaDir {
 		TreeSet<Path> llista = null;
 		TreeSet<Path> subLlista = null;
 		llista = llistaUtilitat(dir);
+		Date data = null;
+		
 		try {
-			FileWriter escriptor = new FileWriter("C:\\Users\\formacio\\Desktop\\Directori.txt", true);
+			FileWriter escriptor = new FileWriter("C:\\Users\\formacio\\Desktop\\Directori.txt");
 			for (Path i : llista) {
 				if (i.toFile().isFile()) {
-
-					escriptor.write(i.getFileName() + "(F)\n");
+					data = new Date(i.toFile().lastModified());
+					escriptor.write(i.getFileName() + "(F) " + data + "\n");
 				} else {
 					subLlista = llistaUtilitat (i);
-					escriptor.write(i.getFileName() + "(D)\\n");
+					data = new Date(i.toFile().lastModified());
+					escriptor.write(i.getFileName() + "(D) " + data + "\n");
 					for (Path j : subLlista) {
 						if (Files.exists(j)) {
-
-							escriptor.write("	" + j.getFileName() + "(F)\n");
+							data = new Date(i.toFile().lastModified());
+							escriptor.write("	" + j.getFileName() + "(F) " + data + "\n");
 						} 
 						else {
-							escriptor.write("	" + j.getFileName() + "(D)\n");
+							data = new Date(i.toFile().lastModified());
+							escriptor.write("	" + j.getFileName() + "(D) " + data + "\n");
 						}
 					}
 				}

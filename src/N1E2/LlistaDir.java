@@ -7,6 +7,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.TreeSet;
 
 public class LlistaDir {
@@ -18,19 +19,24 @@ public class LlistaDir {
 		TreeSet<Path> llista = null;
 		TreeSet<Path> subLlista = null;
 		llista = llistaUtilitat(dir);
+		Date data = null;
 
 		for (Path i : llista) {
 			if (i.toFile().isFile()) {
+				data = new Date(i.toFile().lastModified());
+				System.out.println(i.getFileName() + "(F) " + data);
 				
-				System.out.println(i.getFileName() + "(F)");
 			} else {
+				data = new Date(i.toFile().lastModified());
 				subLlista = llistaUtilitat (i);
-				System.out.println(i.getFileName() + "(D)");
+				System.out.println(i.getFileName() + "(D) " + data);
 				for (Path j : subLlista) {
 					if (Files.exists(j)) {
-						System.out.println("	" + j.getFileName() + "(F)");
+						data = new Date(i.toFile().lastModified());
+						System.out.println("	" + j.getFileName() + "(F) " + data);
 					} else {
-						System.out.println("	" + j.getFileName() + "(D)");
+						data = new Date(i.toFile().lastModified());
+						System.out.println("	" + j.getFileName() + "(D) " + data);
 					}
 				}
 
