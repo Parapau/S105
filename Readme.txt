@@ -28,3 +28,8 @@ from: C:\Users\formacio\eclipse-workspace\S105\src>
 
 use: javac N1e5\main.java n1e5\llistadir.java
 
+N2E1
+
+from: C:\Users\formacio\eclipse-workspace\S105\src>
+
+use: javac N1e5\main.java n2e1\llistadir.java
